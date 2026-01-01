@@ -14,6 +14,16 @@ from telegram.ext import (
     Filters,
     CallbackContext,
 )
+import nltk
+from textblob import download_corpora
+
+# Download required data at startup (no-op if already present)
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    nltk.download("punkt_tab")
+
+download_corpora()  # downloads punkt, wordnet, etc.
 
 # =========================
 # 1) CONFIG
