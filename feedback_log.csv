@@ -1,0 +1,24 @@
+timestamp,user_id,emotion,emoji_chain,feedback,user_text
+2026-01-01T11:36:27,6585708786,fear,😰💭🫂💙,UP,I am feeling sad
+2026-01-01T11:37:14,6585708786,surprise,🤯➡️🧘‍♂️💨,UP,Today is my birthday
+2026-01-01T11:38:30,6585708786,neutral,😐💭🧭📌,DOWN,I got rejected by my crush
+2026-01-01T11:38:31,6585708786,neutral,😐💭🧭📌,DOWN,I got rejected by my crush
+2026-01-01T12:10:17,6585708786,neutral,🤔📎🧠💡,DOWN,How are you bro
+2026-01-01T12:11:31,6585708786,joy,🤩🔥🚀✨,UP,My friend got married
+2026-01-01T12:11:34,6585708786,joy,🤩🔥🚀✨,DOWN,My friend got married
+2026-01-01T12:11:38,6585708786,joy,🤩🔥🚀✨,UP,My friend got married
+2026-01-01T12:11:40,6585708786,joy,🤩🔥🚀✨,UP,My friend got married
+2026-01-01T12:12:28,6585708786,joy,😁🎊💫🌟,DOWN,My friend betrays me
+2026-01-01T12:12:30,6585708786,joy,😁🎊💫🌟,UP,My friend betrays me
+2026-01-01T12:12:49,6585708786,anger,😣📌🧠🧊,UP,I hate you
+2026-01-01T12:13:20,6585708786,anger,😠🚦🧘💨,DOWN,"Today is very bad day ,I ever had"
+2026-01-01T12:13:43,6585708786,joy,😌☀️🌼💫,UP,I need to be more kind
+2026-01-01T12:13:57,6585708786,neutral,😐💭🧭📌,UP,Good day
+2026-01-01T12:14:17,6585708786,joy,🤩🔥🚀✨,DOWN,My mom birthday is tommaroo
+2026-01-01T12:15:33,6585708786,neutral,🤝🙂💬📘,DOWN,Fine
+2026-01-01T12:15:41,6585708786,neutral,🤝🙂💬📘,DOWN,Worst day
+2026-01-01T12:16:09,6585708786,fear,😨🔦🧭🌌,DOWN,I am suffering from fever
+2026-01-01T12:16:28,6585708786,fear,😧📘🧠✨,UP,I got a chicken pox
+2026-01-01T12:16:49,6585708786,sadness,🤍🫂🌱✨,UP,I failed in exam
+2026-01-01T12:56:49,6585708786,neutral,🤝🙂💬📘,UP,"Hello,how are you"
+2026-01-01T12:56:50,6585708786,neutral,🤝🙂💬📘,UP,"Hello,how are you"
