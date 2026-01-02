@@ -1,5 +1,5 @@
 # ===============================
-# GUS BOT – FINAL INDIAN TONE VERSION
+# GUS BOT – FINAL INDIAN TONE VERSION (Railway Fixed)
 # Emotion Accurate • Polite • Warm • Human
 # ===============================
 
@@ -8,7 +8,22 @@ import csv
 import random
 from datetime import datetime
 
+# --------- NLTK + TEXTBLOB FIX FOR RAILWAY ----------
 import nltk
+import textblob
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    nltk.download("punkt_tab")
+
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
+
+textblob.download_corpora.lite()
+# -----------------------------------------------------
+
 from nrclex import NRCLex
 import openai
 
@@ -35,7 +50,6 @@ if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY not set")
 
 openai.api_key = OPENAI_API_KEY
-
 
 LOG_FILE = "feedback_log.csv"
 
@@ -69,7 +83,7 @@ def log_feedback(uid,emotion,chain,fb,text):
 
 
 # =========================
-# EMOTION DETECTOR (INDIAN REAL-LIFE VOCAB)
+# EMOTION DETECTOR
 # =========================
 def detect_emotion(text: str) -> str:
     if not text:
@@ -107,8 +121,8 @@ def detect_emotion(text: str) -> str:
         "shocked","surprised","unexpected","can't believe","suddenly","out of nowhere"
     ]
 
-    # Priority rule matching
-    def match(words): return any(w in t for w in words)
+    def match(words): 
+        return any(w in t for w in words)
 
     if match(sadness): return "sadness"
     if match(joy): return "joy"
@@ -117,11 +131,9 @@ def detect_emotion(text: str) -> str:
     if match(disgust): return "disgust"
     if match(surprise): return "surprise"
 
-    # SPECIAL BETRAYAL – never neutral
     if "cheated" in t or "betrayed" in t or "unfaithful" in t:
         return "sadness"
 
-    # NRCLex fallback
     emo = NRCLex(text)
     scores = dict(emo.raw_emotion_scores)
     if scores:
@@ -133,7 +145,6 @@ def detect_emotion(text: str) -> str:
         if label in mapping:
             return mapping[label]
 
-    # Last fallback should still be kind, not dull neutral
     return "sadness"
 
 
@@ -153,36 +164,32 @@ def keyboard():
 
 
 # =========================
-# CHATGPT — INDIAN POLITE HUMBLE TONE
+# CHATGPT — INDIAN POLITE HUMAN TONE
 # =========================
 def generate_reply(text,emotion):
     styles = {
-        "sadness":"Very humble, gentle, emotionally supportive, Indian comforting tone.",
-        "joy":"Warm Indian happiness, proud tone, graceful celebration.",
-        "anger":"Calm, respectful, acknowledging hurt without fueling anger.",
-        "fear":"Reassuring, kind, safe, caring tone like a trusted person.",
-        "disgust":"Understanding and validating emotional discomfort patiently.",
-        "surprise":"Soft and composed tone, grounding the situation.",
-        "neutral":"Polite, kind, welcoming tone like a caring Indian friend."
+        "sadness":"very gentle, humble, comforting indian tone",
+        "joy":"warm indian happiness, graceful and proud tone",
+        "anger":"calm, respectful, soothing tone acknowledging hurt",
+        "fear":"reassuring, kind, protective tone",
+        "disgust":"understanding and validating tone",
+        "surprise":"soft grounding tone",
+        "neutral":"kind indian-friendly tone"
     }
 
     prompt = f"""
 You are Gus, a very kind and emotionally mature Indian-style support companion.
 
-Tone rules:
-• Speak like a polite, humble Indian friend.
-• Use warmth, respect, kindness.
-• Reply ONLY 1–2 short sentences.
-• Sound human, genuine, heartfelt.
-• No advice, no solutions, no questions.
-• Avoid robotic motivational tone.
-• NO emojis. Emojis are added separately.
-• Emotion tone style = {styles.get(emotion,"warm and caring")}
+Rules:
+• Sound like a calm Indian friend
+• Be soft, kind, respectful, heartfelt
+• Reply only 1–2 short sentences
+• No advice, no questions
+• No robotic motivation
+• NO emojis (they are handled separately)
 
+Emotion tone: {styles.get(emotion,'warm caring tone')}
 User: "{text}"
-Emotion: {emotion}
-
-Now reply:
 """
 
     try:
@@ -193,13 +200,12 @@ Now reply:
             temperature=0.9
         )
         return res.choices[0].message.content.strip()
-
     except:
         fallback = {
             "sadness":"That truly sounds heavy… I’m really sorry you’re going through this.",
             "joy":"That’s genuinely wonderful to hear, I’m really happy for you.",
             "anger":"Anyone would feel hurt in a situation like that, your feelings are valid.",
-            "fear":"That sounds quite overwhelming, but you’re not alone in this.",
+            "fear":"That sounds overwhelming, but you are not alone in this.",
             "disgust":"That really does sound uncomfortable, I can understand why it affected you.",
             "surprise":"That must have come as quite a shock, take a moment to breathe.",
             "neutral":"I’m right here for you, whenever you feel like sharing."
@@ -212,10 +218,10 @@ Now reply:
 # =========================
 def start(update,context):
     update.message.reply_text(
-        "vanakam da nanba/nanbis, I’m Gus 😊\n\n"
-        "Whatever is in your heart — happiness, sadness, frustration, fear or confusion — you can share with me.\n"
-        "I’ll respond gently with a short caring message and a warm emoji chain.\n"
-        "After my reply, kindly tap 👍 or 👎 so I can improve for you."
+        "vanakam naba/nanbis.., I’m Gus 😊\n\n"
+        "You can share anything from your heart.\n"
+        "I’ll reply gently with warmth and care, along with a small emoji chain.\n"
+        "After my reply, kindly tap 👍 or 👎 — it helps me improve."
     )
 
 def handle_text(update,context):
@@ -259,11 +265,6 @@ def feedback(update,context):
 # MAIN
 # =========================
 def main():
-    try:
-        nltk.data.find("tokenizers/punkt")
-    except LookupError:
-        nltk.download("punkt")
-
     updater = Updater(token=BOT_TOKEN,use_context=True)
     dp = updater.dispatcher
 
