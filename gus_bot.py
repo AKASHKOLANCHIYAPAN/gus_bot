@@ -225,7 +225,7 @@ User: "{text}"
 # =========================
 def start(update,context):
     update.message.reply_text(
-        "vanakam naba/nanbis.., I’m Gus 😊\n\n"
+        "vanakam nanba/nanbis.., I’m Gus 😊\n\n"
         "You can share anything from your heart.\n"
         "I’ll reply gently with warmth and care, along with a small emoji chain.\n"
         "After my reply, kindly tap 👍 or 👎 — it helps me improve."
