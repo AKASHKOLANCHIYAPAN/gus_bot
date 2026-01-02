@@ -9,8 +9,10 @@ import random
 from datetime import datetime
 
 # --------- NLTK + TEXTBLOB FIX FOR RAILWAY ----------
+# --------- NLTK + TEXTBLOB FIX FOR RAILWAY ----------
 import nltk
-import textblob
+from textblob import download_corpora
+
 try:
     nltk.data.find("tokenizers/punkt_tab")
 except LookupError:
@@ -21,7 +23,12 @@ try:
 except LookupError:
     nltk.download("punkt")
 
-textblob.download_corpora.lite()
+try:
+    download_corpora.lite()
+except:
+    pass
+# -----------------------------------------------------
+
 # -----------------------------------------------------
 
 from nrclex import NRCLex
