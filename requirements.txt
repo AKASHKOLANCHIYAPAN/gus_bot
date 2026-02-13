@@ -2,3 +2,10 @@ python-telegram-bot==13.15
 nltk
 nrclex
 openai==0.28
+python-telegram-bot==13.15
+fastapi
+uvicorn
+openai
+nltk
+textblob
+nrclex
